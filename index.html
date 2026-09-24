@@ -138,13 +138,13 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
         <div class="switch" id="scope"><button class="active" data-s="modal">Solo modalidad</button><button data-s="network">Toda la Network (+35%)</button></div>
       </div>
       <div id="filters" class="chips" style="margin-bottom:14px">
-        <button class="chip active" data-f="all">Todo</button>
-        <button class="chip" data-f="rango-p">Rangos Perm.</button>
-        <button class="chip" data-f="rango-t">Rangos Temp.</button>
-        <button class="chip" data-f="cosm">Cosméticos</button>
-        <button class="chip" data-f="cmd">Comandos</button>
-        <button class="chip" data-f="kits">Kits</button>
-        <button class="chip" data-f="coins">Coins/Llaves</button>
+        <button class="chip active" data-f="all">✨ Todo</button>
+        <button class="chip" data-f="rango-p">👑 Rangos Perm.</button>
+        <button class="chip" data-f="rango-t">⏳ Rangos Temp.</button>
+        <button class="chip" data-f="cosm">🎨 Cosméticos</button>
+        <button class="chip" data-f="cmd">⌨️ Comandos</button>
+        <button class="chip" data-f="kits">🎒 Kits</button>
+        <button class="chip" data-f="coins">🪙 Coins/Llaves</button>
       </div>
       <div class="products" id="grid"></div>
     </div>
@@ -190,11 +190,17 @@ document.getElementById('daviBtn').onclick=()=>{const b=document.getElementById(
  window.openPreview=(id)=>{const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const m=document.getElementById('preview');document.getElementById('pvEmoji').textContent=p.emoji;document.getElementById('pvTitle').textContent=p.title;document.getElementById('pvDesc').textContent=p.desc;document.getElementById('pvMods').textContent=(p.mods||[]).join(' • ');m.style.display='grid'};
  window.closePreview=()=>document.getElementById('preview').style.display='none';
 
-// Products by modality — cosméticos y kits separados por modalidad
+// Productos SylenMC — Rangos principales Verdugo → Brasa (mayor a menor) + VIPs
 const PRODUCTS=[
+ // RANGOS SYLENMC (de mayor a menor) — núcleo de la red
+ {id:'verdugo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'😈',title:'VERDUGO',price:{survival:29.99,semi:24.99,simson:22.99},desc:'Rango máximo SylenMC — todo incluido + tag exclusivo',preview:'😈 VERDUGO — El rango supremo'},
+ {id:'demonio-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👹',title:'DEMONIO',price:{survival:19.99,semi:16.99,simson:15.99},desc:'Debajo de Verdugo — kits demoníacos',preview:'👹 DEMONIO — poder oscuro'},
+ {id:'magma-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🌋',title:'MAGMA',price:{survival:14.99,semi:11.99,simson:10.99},desc:'Rango intermedio — magma y fuego',preview:'🌋 MAGMA — lava'},
+ {id:'abismo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🕳️',title:'ABISMO',price:{survival:9.99,semi:7.99,simson:6.99},desc:'Rango medio — abismo',preview:'🕳️ ABISMO — profundo'},
+ {id:'brasa-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🔥',title:'BRASA',price:{survival:4.99,semi:3.49,simson:3.99},desc:'Rango inicial SylenMC',preview:'🔥 BRASA — inicio'},
  {id:'vip-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👑',title:'VIP Permanente',price:{survival:4.99,semi:3.99,simson:4.49},desc:'Kit VIP + 2 homes + color en chat',preview:'👑 VIP — tag dorado + kit completo'},
  {id:'mvp-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'💎',title:'MVP Permanente',price:{survival:9.99,semi:7.99,simson:8.99},desc:'VIP + fly + tag exclusivo',preview:'💎 MVP — brillo y vuelo'},
- {id:'legend-p',cat:'rango-p',mods:['survival','semi'],emoji:'🔥',title:'LEGEND Permanente',price:{survival:19.99,semi:14.99},desc:'MVP + kits legend + prioridad',preview:'🔥 LEGEND — lo máximo'},
+ {id:'legend-p',cat:'rango-p',mods:['survival','semi'],emoji:'⭐',title:'LEGEND Permanente',price:{survival:19.99,semi:14.99},desc:'MVP + kits legend + prioridad',preview:'⭐ LEGEND — lo máximo'},
  {id:'vip-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'VIP 30 días',price:{survival:2.49,semi:1.99,simson:2.29},desc:'Prueba VIP por 30 días'},
  {id:'mvp-t',cat:'rango-t',mods:['survival','semi'],emoji:'⏳',title:'MVP 30 días',price:{survival:4.99,semi:3.99},desc:'Prueba MVP por 30 días'},
  // tags exclusivos de lobby (real money) — país se compra dentro del juego por $25k, no aquí
