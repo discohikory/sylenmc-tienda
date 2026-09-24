@@ -82,7 +82,7 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
         <div style="font-family:'JetBrains Mono';font-size:.7rem;letter-spacing:.2em;color:#9a9aa6">VENTAJA NETWORK</div>
         <div style="font-size:1.1rem;font-weight:900;margin:6px 0">Compra una vez, úsalo en <span style="color:#e8c15a">toda la red</span></div>
         <p class="muted" style="margin:0">Modalidad = solo ahí. Network = Survival OP + Semi-Anárquico + SimsonBox (+35%).</p>
-        <div class="payicons"><span>PayPal</span><span>MercadoPago</span><span>Stripe</span><span>Crypto</span></div>
+        <div class="payicons" id="payTop"></div>
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
         <h3>💬 ¿Necesitas ayuda?</h3>
         <p class="muted">Soporte de pagos y entregas en Discord.</p>
         <a href="https://discord.gg/uQFkw4ssKJ" target="_blank" style="margin-top:8px;display:inline-flex;gap:8px;align-items:center;background:#5865F2;color:#fff;padding:10px 14px;border-radius:12px;font-weight:900">Join Discord →</a>
-        <div class="payicons"><span>PayPal</span><span>MercadoPago</span><span>Stripe</span></div>
+        <div class="payicons" id="payHelp"></div>
       </div>
       <div class="card">
         <h3>🛒 Bolsa</h3>
@@ -155,7 +155,7 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
   <head><b>🛒 Carrito</b><button id="closeCart" class="chip">Cerrar</button></head>
   <div class="items" id="cartItems"></div>
   <div class="total"><div style="display:flex;justify-content:space-between;font-weight:900"><span>Total</span><span id="cartTotal">$0.00</span></div>
-  <div class="payicons"><span>PayPal</span><span>MercadoPago</span><span>Stripe</span></div>
+  <div class="payicons" id="payDrawer"></div>
   <input id="checkoutNick" placeholder="Tu nick para entrega" style="background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff">
   <div style="display:grid;gap:8px">
     <button class="check" id="checkout">Pagar por Discord</button>
@@ -163,8 +163,8 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
     <button class="check" id="daviBtn" style="background:#e30613;color:#fff">Pagar con DaviPlata 🇨🇴</button>
     <div id="daviBox" style="display:none;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:12px">
       <b style="font-size:.9rem">DaviPlata Colombia</b><p class="muted" style="margin:6px 0">Transfiere al número del owner (coloca aquí tu número). Luego sube comprobante por Discord.</p>
-      <div style="font-family:'JetBrains Mono';font-weight:900;font-size:1.2rem;text-align:center;padding:8px;background:#fff;color:#000;border-radius:10px" id="daviNum">300 000 0000 — configúrame</div>
-      <small class="muted">Reemplaza este número en el código: busca DaviPlata 300... en el HTML.</small>
+      <div style="font-family:'JetBrains Mono';font-weight:900;font-size:1.2rem;text-align:center;padding:8px;background:#fff;color:#000;border-radius:10px" id="daviNum">🇨🇴 +57 3053957676</div>
+      <small class="muted">Copia el número, transfiere y sube comprobante. Métodos locales se adaptan a tu país automáticamente.</small>
     </div>
   </div>
   <p class="muted" style="font-size:.8rem">Elige modalidad arriba. Network cuesta +35% y se activa en las 3. Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop).</p></div>
@@ -261,6 +261,31 @@ function checkout(url){
 document.getElementById('checkout').onclick=()=>checkout('https://discord.gg/uQFkw4ssKJ');
 document.getElementById('payPal').onclick=()=>{if(!CART.length)return alert('Carrito vacío');const amt=totalEl.textContent.replace('$','');window.open('https://www.paypal.com/paypalme/discohikory/'+amt,'_blank'); checkout('https://discord.gg/uQFkw4ssKJ')};
 update();
+// Pagos por país (detecta y muestra DaviPlata/PSE/Nequi + PayPal/MercadoPago/Stripe/Crypto)
+const PAY_BY_COUNTRY={
+ CO:['DaviPlata','Nequi','PSE','Bancolombia','PayPal','MercadoPago','Crypto'],
+ MX:['MercadoPago','OXXO','SPEI','PayPal','Crypto'],
+ AR:['MercadoPago','Transferencia','PayPal','Crypto'],
+ PE:['PagoEfectivo','MercadoPago','PayPal','Crypto'],
+ CL:['Mach','MercadoPago','PayPal','Crypto'],
+ ES:['Bizum','PayPal','Stripe','Crypto'],
+ DEFAULT:['PayPal','Stripe','MercadoPago','Crypto','PSE','DaviPlata']
+};
+function renderPays(list, ids){
+ const html=list.map(m=>`<span>${m==='DaviPlata'?'🇨🇴 DaviPlata':m==='PayPal'?'💳 PayPal':m}</span>`).join('');
+ ids.forEach(id=>{const el=document.getElementById(id); if(el) el.innerHTML=html});
+}
+let detected='DEFAULT';
+fetch('https://ipapi.co/json/').then(r=>r.json()).then(j=>{
+ const cc=(j.country_code||'').toUpperCase();
+ detected=PAY_BY_COUNTRY[cc]?'CO' in PAY_BY_COUNTRY && cc==='CO'?'CO':cc in PAY_BY_COUNTRY?cc:'DEFAULT':'DEFAULT';
+ // map cc to our key
+ let key=cc in PAY_BY_COUNTRY?cc:'DEFAULT';
+ renderPays(PAY_BY_COUNTRY[key]||PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']);
+ if(key==='CO'){document.getElementById('daviBox')?.style && (document.getElementById('daviBox').style.display='block');}
+}).catch(()=>renderPays(PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']));
+// init with default until fetch
+renderPays(PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']);
 // Supabase Staff del Mes (robusto + filtrado)
 (async()=>{
  try{
