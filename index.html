@@ -94,9 +94,12 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
     <div style="display:grid;gap:16px;align-content:start">
       <div class="card">
         <h3>🔐 Login</h3>
-        <p class="muted">Usa tu cuenta de Minecraft antes de comprar. Así vinculamos tu entrega.</p>
-        <div style="display:flex;gap:8px;margin-top:8px"><input id="mcNick" placeholder="Tu nick" style="flex:1;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff"><button id="loginBtn" class="chip active">Entrar</button></div>
+        <p class="muted">Nick de Minecraft + Discord opcional (para entrega automática del rango en MC y Discord).</p>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><input id="mcNick" placeholder="Tu nick" style="flex:1;min-width:140px;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff"><button id="loginBtn" class="chip active">Entrar</button></div>
+        <button id="dcBtn" style="margin-top:8px;width:100%;background:#5865F2;color:#fff;border:none;border-radius:12px;padding:10px;font-weight:900;cursor:pointer">🔗 Conectar Discord (opcional)</button>
         <p class="muted" id="loginMsg" style="margin:8px 0 0"></p>
+        <p class="muted" id="dcMsg" style="margin:4px 0 0"></p>
+        <p class="muted" id="dcRemind" style="margin:6px 0 0;display:none;color:#e8c15a">⚠️ Conecta tu Discord para recibir el rango también en Discord automáticamente. Puedes comprar igual, pero te lo recordamos.</p>
       </div>
       <div class="card">
         <h3>💬 ¿Necesitas ayuda?</h3>
@@ -154,31 +157,58 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
   <div class="total"><div style="display:flex;justify-content:space-between;font-weight:900"><span>Total</span><span id="cartTotal">$0.00</span></div>
   <div class="payicons"><span>PayPal</span><span>MercadoPago</span><span>Stripe</span></div>
   <input id="checkoutNick" placeholder="Tu nick para entrega" style="background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff">
-  <button class="check" id="checkout">Pagar por Discord</button><button class="check" id="payPal" style="background:#003087;color:#fff">Pagar con PayPal</button>
-  <p class="muted" style="font-size:.8rem">Elige modalidad arriba. Network cuesta +35% y se activa en las 3.</p></div>
+  <div style="display:grid;gap:8px">
+    <button class="check" id="checkout">Pagar por Discord</button>
+    <button class="check" id="payPal" style="background:#003087;color:#fff">Pagar con PayPal</button>
+    <button class="check" id="daviBtn" style="background:#e30613;color:#fff">Pagar con DaviPlata 🇨🇴</button>
+    <div id="daviBox" style="display:none;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:12px">
+      <b style="font-size:.9rem">DaviPlata Colombia</b><p class="muted" style="margin:6px 0">Transfiere al número del owner (coloca aquí tu número). Luego sube comprobante por Discord.</p>
+      <div style="font-family:'JetBrains Mono';font-weight:900;font-size:1.2rem;text-align:center;padding:8px;background:#fff;color:#000;border-radius:10px" id="daviNum">300 000 0000 — configúrame</div>
+      <small class="muted">Reemplaza este número en el código: busca DaviPlata 300... en el HTML.</small>
+    </div>
+  </div>
+  <p class="muted" style="font-size:.8rem">Elige modalidad arriba. Network cuesta +35% y se activa en las 3. Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop).</p></div>
 </aside>
-<footer>© 2026 SylenMC Network • Tienda Oficial • © Discohikorybrs - Daniel Esteban Vera Fernandez</footer>
+<div id="preview" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);place-items:center;padding:20px" onclick="if(event.target===this)closePreview()"><div style="background:#141414;border:1px solid #24242e;border-radius:22px;max-width:520px;width:100%;padding:22px;text-align:center;animation:pop .3s"><div id="pvEmoji" style="font-size:4rem;animation:float 2s ease-in-out infinite">🎒</div><h3 id="pvTitle">Preview</h3><p class="muted" id="pvDesc"></p><p class="muted" id="pvMods" style="font-family:'JetBrains Mono';font-size:.75rem"></p><button class="buy" style="margin-top:12px" onclick="closePreview()">Cerrar</button></div></div>
+<style>@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style>
+<footer>© 2026 SylenMC Network • Tienda Oficial • © Discohikorybrs - Daniel Esteban Vera Fernandez<br><small class="muted">Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop). Kits y cosméticos varían por modalidad.</small></footer>
 
 <script>
-// Login mock (guarda nick)
-const nickInput=document.getElementById('mcNick'),loginBtn=document.getElementById('loginBtn'),loginMsg=document.getElementById('loginMsg');
+// Login: nick + Discord OAuth opcional
+const nickInput=document.getElementById('mcNick'),loginBtn=document.getElementById('loginBtn'),loginMsg=document.getElementById('loginMsg'),dcBtn=document.getElementById('dcBtn'),dcMsg=document.getElementById('dcMsg'),dcRemind=document.getElementById('dcRemind');
 let MC_NICK=localStorage.getItem('sylen-mc')||'';
+let DC_ID=localStorage.getItem('sylen-dc-id')||'', DC_NAME=localStorage.getItem('sylen-dc-name')||'';
+function refreshDiscordUI(){ if(DC_ID){dcMsg.textContent='✔ Discord: '+DC_NAME+' ('+DC_ID+')'; dcBtn.textContent='🔗 Discord conectado'; dcRemind.style.display='none';} else {dcMsg.textContent='Discord opcional — recomendado para entrega automática'; dcRemind.style.display='block'; dcBtn.textContent='🔗 Conectar Discord (opcional)';}}
 if(MC_NICK){nickInput.value=MC_NICK;loginMsg.textContent='Logueado como '+MC_NICK}
+refreshDiscordUI();
+// OAuth callback
+(function(){const h=location.hash;if(h.includes('access_token')){const p=new URLSearchParams(h.substring(1));const t=p.get('access_token');if(t){fetch('https://discord.com/api/users/@me',{headers:{Authorization:'Bearer '+t}}).then(r=>r.json()).then(u=>{DC_ID=u.id;DC_NAME=u.username;localStorage.setItem('sylen-dc-id',DC_ID);localStorage.setItem('sylen-dc-name',DC_NAME);refreshDiscordUI();history.replaceState(null,'',location.pathname+location.search);}).catch(()=>{});}}})();
 loginBtn.onclick=()=>{const v=nickInput.value.trim();if(!v)return loginMsg.textContent='Escribe tu nick';localStorage.setItem('sylen-mc',v);MC_NICK=v;loginMsg.textContent='✔ Logueado como '+v;document.getElementById('checkoutNick').value=v};
+dcBtn.onclick=()=>{const cid='1550563034118889583';const red=encodeURIComponent(location.href.split('#')[0]);location.href=`https://discord.com/oauth2/authorize?client_id=${cid}&response_type=token&redirect_uri=${red}&scope=identify`};
+document.getElementById('daviBtn').onclick=()=>{const b=document.getElementById('daviBox');b.style.display=b.style.display==='none'?'block':'none'};
+ // Preview modal helper
+ window.openPreview=(id)=>{const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const m=document.getElementById('preview');document.getElementById('pvEmoji').textContent=p.emoji;document.getElementById('pvTitle').textContent=p.title;document.getElementById('pvDesc').textContent=p.desc;document.getElementById('pvMods').textContent=(p.mods||[]).join(' • ');m.style.display='grid'};
+ window.closePreview=()=>document.getElementById('preview').style.display='none';
 
-// Products by modality
+// Products by modality — cosméticos y kits separados por modalidad
 const PRODUCTS=[
- {id:'vip-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👑',title:'VIP Permanente',price:{survival:4.99,semi:3.99,simson:4.49},desc:'Kit VIP + 2 homes + color en chat'},
- {id:'mvp-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'💎',title:'MVP Permanente',price:{survival:9.99,semi:7.99,simson:8.99},desc:'VIP + fly + tag exclusivo'},
- {id:'legend-p',cat:'rango-p',mods:['survival','semi'],emoji:'🔥',title:'LEGEND Permanente',price:{survival:19.99,semi:14.99},desc:'MVP + kits legend + prioridad'},
+ {id:'vip-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👑',title:'VIP Permanente',price:{survival:4.99,semi:3.99,simson:4.49},desc:'Kit VIP + 2 homes + color en chat',preview:'👑 VIP — tag dorado + kit completo'},
+ {id:'mvp-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'💎',title:'MVP Permanente',price:{survival:9.99,semi:7.99,simson:8.99},desc:'VIP + fly + tag exclusivo',preview:'💎 MVP — brillo y vuelo'},
+ {id:'legend-p',cat:'rango-p',mods:['survival','semi'],emoji:'🔥',title:'LEGEND Permanente',price:{survival:19.99,semi:14.99},desc:'MVP + kits legend + prioridad',preview:'🔥 LEGEND — lo máximo'},
  {id:'vip-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'VIP 30 días',price:{survival:2.49,semi:1.99,simson:2.29},desc:'Prueba VIP por 30 días'},
  {id:'mvp-t',cat:'rango-t',mods:['survival','semi'],emoji:'⏳',title:'MVP 30 días',price:{survival:4.99,semi:3.99},desc:'Prueba MVP por 30 días'},
- {id:'tag-pais',cat:'cosm',mods:['survival','semi','simson'],emoji:'🏷️',title:'Tag País (COL, ARG…)',price:{survival:1.99,semi:1.49,simson:1.49},desc:'Tag corto con gradiente del país'},
- {id:'trail',cat:'cosm',mods:['survival','semi'],emoji:'✨',title:'Partículas / Trail',price:{survival:3.49,semi:2.99},desc:'Efectos al caminar'},
+ // tags exclusivos de lobby (real money) — país se compra dentro del juego por $25k, no aquí
+ {id:'tag-zorro',cat:'cosm',mods:['survival'],emoji:'🦊',title:'Tag ZORRO (lobby exclusivo)',price:{survival:2.49},desc:'Exclusivo del lobby — eventos',preview:'🦊 ZORRO — naranja fuego'},
+ {id:'tag-leyenda',cat:'cosm',mods:['semi'],emoji:'🌟',title:'Tag LEYENDA (semi exclusivo)',price:{semi:2.99},desc:'Solo Semi-Anárquico',preview:'🌟 LEYENDA — dorado'},
+ {id:'tag-simson',cat:'cosm',mods:['simson'],emoji:'📦',title:'Tag SIMSON (box exclusivo)',price:{simson:1.99},desc:'Solo SimsonBox',preview:'📦 SIMSON — pixelado'},
+ {id:'trail-survival',cat:'cosm',mods:['survival'],emoji:'✨',title:'Trail Survival (corazones)',price:{survival:3.49},desc:'Partículas al caminar — Survival',preview:'✨ Trail corazones'},
+ {id:'trail-semi',cat:'cosm',mods:['semi'],emoji:'💨',title:'Trail Semi (humo)',price:{semi:2.99},desc:'Humo anárquico — Semi',preview:'💨 Trail humo'},
+ {id:'trail-simson',cat:'cosm',mods:['simson'],emoji:'🧱',title:'Trail Simson (bloques)',price:{simson:2.49},desc:'Bloques al pisar — SimsonBox',preview:'🧱 Trail bloques'},
  {id:'fly',cat:'cmd',mods:['survival','semi'],emoji:'🪽',title:'/fly',price:{survival:4.99,semi:3.99},desc:'Vuelo en tu mundo'},
  {id:'heal',cat:'cmd',mods:['survival','semi','simson'],emoji:'❤️',title:'/heal + /feed',price:{survival:2.99,semi:2.49,simson:2.49},desc:'Cura y comida'},
- {id:'kit-starter',cat:'kits',mods:['survival','semi','simson'],emoji:'🎒',title:'Kit Starter+',price:{survival:2.99,semi:1.99,simson:2.49},desc:'Armadura y herramientas'},
- {id:'kit-pvp',cat:'kits',mods:['survival','semi'],emoji:'⚔️',title:'Kit PvP Élite',price:{survival:7.99,semi:6.99},desc:'Set PvP + perlas'},
+ {id:'kit-survival',cat:'kits',mods:['survival'],emoji:'🎒',title:'Kit Survival OP',price:{survival:3.49},desc:'Full diamante + espada OP — Survival',preview:'🎒 Kit Survival — armadura diamantada'},
+ {id:'kit-semi',cat:'kits',mods:['semi'],emoji:'🪓',title:'Kit Semi-Anárquico',price:{semi:2.99},desc:'Kit anárquico con gapples — Semi',preview:'🪓 Kit Semi — hacha y manzanas'},
+ {id:'kit-simson',cat:'kits',mods:['simson'],emoji:'📦',title:'Kit SimsonBox',price:{simson:2.99},desc:'Kit caja sorpresa — SimsonBox',preview:'📦 Kit Simson — caja misteriosa'},
  {id:'coins10k',cat:'coins',mods:['survival','semi','simson'],emoji:'🪙',title:'10.000 Coins',price:{survival:4.99,semi:2.99,simson:3.99},desc:'Moneda interna'},
  {id:'keys5',cat:'coins',mods:['survival','semi'],emoji:'🗝️',title:'5 Llaves Místicas',price:{survival:6.99,semi:4.99},desc:'Cofres místicos'},
 ];
@@ -191,7 +221,8 @@ function render(){
   const pr=priceOf(p);
   const d=document.createElement('div');d.className='pcard';
   const mods=p.mods.map(m=>m==='survival'?'Survival OP':m==='semi'?'Semi':m==='simson'?'SimsonBox':m).join(' • ');
-  d.innerHTML=`<div class="img">${p.emoji}</div><div class="body"><div style="font-family:'JetBrains Mono';font-size:.62rem;color:#9a9aa6;border:1px solid #24242e;padding:4px 8px;border-radius:999px;width:fit-content">${p.cat} • ${mods}</div><h3>${p.title}</h3><p class="muted">${p.desc}</p><div class="price">$${pr.toFixed(2)} <small class="muted">${SCOPE==='network'?'Network':MOD==='all'?'modalidad':MOD}</small></div><button class="buy" data-id="${p.id}">Añadir al carrito</button></div>`;
+  const previewBtn = (p.preview? `<button class="buy2" style="margin-top:6px;padding:8px;border-radius:10px;cursor:pointer" onclick="openPreview('${p.id}')">👁️ Vista previa</button>`:'');
+  d.innerHTML=`<div class="img" style="cursor:pointer" onclick="openPreview('${p.id}')">${p.emoji}</div><div class="body"><div style="font-family:'JetBrains Mono';font-size:.62rem;color:#9a9aa6;border:1px solid #24242e;padding:4px 8px;border-radius:999px;width:fit-content">${p.cat} • ${mods}</div><h3>${p.title}</h3><p class="muted">${p.desc}</p><div class="price">$${pr.toFixed(2)} <small class="muted">${SCOPE==='network'?'Network':MOD==='all'?'modalidad':MOD}</small></div>${previewBtn}<button class="buy" data-id="${p.id}">Añadir al carrito</button></div>`;
   grid.appendChild(d);
  });
  if(!grid.children.length) grid.innerHTML='<p class="muted">Sin productos en esta combinación.</p>';
@@ -223,7 +254,8 @@ function checkout(url){
  if(!CART.length)return alert('Carrito vacío');
  const nick=document.getElementById('checkoutNick').value.trim()||MC_NICK||'';
  if(!nick)return alert('Escribe tu nick para la entrega');
- const msg=encodeURIComponent('Hola SylenMC! Quiero comprar ('+SCOPE+'):\n'+CART.map(it=>{const p=PRODUCTS.find(x=>x.id===it.id);return `- ${p.title} [${it.mod}] x${it.qty} ($${(it.pr*it.qty).toFixed(2)})`}).join('\n')+'\nTotal: '+totalEl.textContent+'\nNick: '+nick+'\nModalidad: '+(MOD==='network'?'Network':MOD));
+ if(!DC_ID) dcRemind.style.display='block';
+ const msg=encodeURIComponent('Hola SylenMC! Quiero comprar ('+SCOPE+'):\n'+CART.map(it=>{const p=PRODUCTS.find(x=>x.id===it.id);return `- ${p.title} [${it.mod}] x${it.qty} ($${(it.pr*it.qty).toFixed(2)})`}).join('\n')+'\nTotal: '+totalEl.textContent+'\nNick: '+nick+'\nDiscord: '+(DC_ID? DC_NAME+' ('+DC_ID+')':'no vinculado')+'\nModalidad: '+(MOD==='network'?'Network':MOD));
  window.open(url,'_blank')
 }
 document.getElementById('checkout').onclick=()=>checkout('https://discord.gg/uQFkw4ssKJ');
