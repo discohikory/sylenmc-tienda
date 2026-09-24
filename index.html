@@ -4,63 +4,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SylenMC — Tienda Oficial</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>var SYLENMC_CLOUD={URL:"https://smwduccwkslhlavxjyxn.supabase.co",ANON:"sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5",TBL:""};</script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#050505;color:#f2f2f5;font-family:'Inter',sans-serif;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#070708;color:#f2f2f5;font-family:'Inter',sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;justify-content:space-between;width:min(920px,94vw);padding:10px 14px;background:rgba(10,10,14,.92);backdrop-filter:blur(18px);border:1px solid #24242e;border-radius:999px}
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;justify-content:space-between;width:min(980px,94vw);padding:10px 14px;background:rgba(12,12,16,.92);backdrop-filter:blur(18px);border:1px solid #23232a;border-radius:999px}
 .brand{display:flex;align-items:center;gap:10px}.mark{width:38px;height:38px;border-radius:12px;background:#000;border:1px solid #2a2a33;display:grid;place-items:center;font-weight:900}
 .brand b{font-size:.82rem;letter-spacing:.06em}.brand small{display:block;font-family:'JetBrains Mono';font-size:.58rem;letter-spacing:.28em;color:#9a9aa6}
-.links{display:flex;gap:8px;align-items:center}
-.links a{font-size:.76rem;font-weight:700;color:#9a9aa6;padding:8px 12px;border-radius:999px}
-.links a:hover{color:#fff;background:#15151c}
-.cart{position:relative;background:#fff;color:#000;font-weight:900;padding:8px 14px;border-radius:999px;border:none;cursor:pointer}
+.links{display:flex;gap:6px;align-items:center}.links a{font-size:.76rem;font-weight:700;color:#9a9aa6;padding:8px 12px;border-radius:999px}
+.links a:hover{color:#fff;background:#15151c}.cart{position:relative;background:#fff;color:#000;font-weight:900;padding:8px 14px;border-radius:999px;border:none;cursor:pointer}
 .cart span{position:absolute;top:-6px;right:-6px;background:#e8c15a;color:#000;font-size:.7rem;width:20px;height:20px;display:grid;place-items:center;border-radius:50%}
 .wrap{max-width:1280px;margin:0 auto;padding:96px 16px 40px}
-.grid{ display:grid; grid-template-columns:320px 1fr; gap:24px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:1.5rem;padding:22px}
-.card h3{font-size:.95rem;margin-bottom:8px}
-.muted{color:#9a9aa6;font-size:.85rem;line-height:1.6}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.chip{padding:8px 14px;border-radius:999px;border:1px solid #24242e;background:#0c0c10;color:#9a9aa6;font-weight:800;cursor:pointer;font-size:.78rem}
-.chip.active{background:#fff;color:#000;border-color:#fff}
-.mod{padding:9px 14px;border-radius:999px;border:1px solid #24242e;background:#0c0c10;color:#9a9aa6;font-weight:800;cursor:pointer;font-size:.78rem}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:22px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.side{display:grid;gap:16px;align-content:start}
+.card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:1.25rem;padding:18px}
+.card h3{font-size:.9rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.muted{color:#9a9aa6;font-size:.82rem;line-height:1.6}
+.pkg{padding:10px 12px;border-radius:12px;display:flex;align-items:center;gap:10px;cursor:pointer;border:1px solid transparent;color:#9a9aa6;font-weight:700;font-size:.85rem}
+.pkg.active{background:rgba(232,193,90,.12);border-color:rgba(232,193,90,.22);color:#fff}
+.pkg .ico{width:28px;height:28px;border-radius:8px;background:#1e1e22;display:grid;place-items:center;font-size:1rem}
+.mods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mod{padding:8px 13px;border-radius:999px;border:1px solid #23232a;background:#0c0c10;color:#9a9aa6;font-weight:800;cursor:pointer;font-size:.78rem}
 .mod.active{background:#e8c15a;color:#000;border-color:#e8c15a}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{padding:7px 12px;border-radius:999px;border:1px solid #23232a;background:#0c0c10;color:#9a9aa6;font-weight:700;cursor:pointer;font-size:.76rem}
+.chip.active{background:#fff;color:#000}
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-.pcard{background:linear-gradient(180deg,#1a1a1e 0%,#111113 100%);border:1px solid rgba(255,255,255,.07);border-radius:1.5rem;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+.pcard{background:linear-gradient(180deg,#1a1a1e 0%,#111113 100%);border:1px solid rgba(255,255,255,.07);border-radius:1.25rem;overflow:hidden;display:flex;flex-direction:column;transition:.22s;cursor:pointer}
 .pcard:hover{transform:translateY(-4px);border-color:rgba(232,193,90,.25);box-shadow:0 0 24px rgba(232,193,90,.12)}
-.pcard .img{height:148px;display:grid;place-items:center;font-size:3rem;background:radial-gradient(600px 200px at 50% 0%,rgba(232,193,90,.14),transparent 60%),linear-gradient(180deg,#1e1e26,#0f0f12)}
-.pcard .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
-.price{font-weight:900;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.price small{color:#9a9aa6;font-weight:600}
-.buy{margin-top:auto;background:#fff;color:#000;border:none;border-radius:12px;padding:11px;font-weight:900;cursor:pointer}
-.buy2{background:transparent;color:#fff;border:1px solid #2a2a33}
-.scope{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
-.switch{display:flex;border:1px solid #24242e;border-radius:999px;overflow:hidden}
-.switch button{padding:7px 12px;border:none;background:transparent;color:#9a9aa6;font-weight:800;cursor:pointer;font-size:.78rem}
-.switch button.active{background:#fff;color:#000}
-.sotm-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:700px){.sotm-grid{grid-template-columns:1fr}}
-.sotm-card{background:linear-gradient(180deg,#1a1a1e,#0f0f12);border:1px solid #3a3520;border-radius:1.5rem;padding:22px;text-align:center}
-.sotm-card img{width:88px;height:88px;border-radius:16px;background:#000;border:1px solid #333;image-rendering:pixelated}
-.dc{width:88px;height:88px;border-radius:50%;padding:4px;background:conic-gradient(#e8c15a,#fff,#e8c15a)}
-.dc img{width:100%;height:100%;border-radius:50%;background:#111}
-.board{display:grid;gap:8px;max-height:320px;overflow:auto}
-.row{display:flex;align-items:center;gap:10px;background:#0d0d13;border:1px solid #24242e;border-radius:12px;padding:10px 12px}
-.row b{margin-left:auto;background:#fff;color:#000;border-radius:999px;padding:2px 10px;font-size:.78rem}
-.payicons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.payicons span{border:1px solid #24242e;background:#0c0c10;padding:8px 12px;border-radius:999px;font-weight:800;font-size:.78rem}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:#0b0b10;border-left:1px solid #24242e;transform:translateX(100%);transition:.3s;z-index:60;display:flex;flex-direction:column}
-.drawer.open{transform:none}
-.drawer head{padding:18px;border-bottom:1px solid #24242e;display:flex;justify-content:space-between;align-items:center}
+.pcard .img{height:160px;display:grid;place-items:center;background:radial-gradient(600px 200px at 50% 0%,rgba(232,193,90,.14),transparent 60%),linear-gradient(180deg,#1e1e26,#0f0f12);position:relative;overflow:hidden}
+.pcard .img img{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.5));transition:.3s}
+.pcard:hover .img img{transform:scale(1.08)}
+.pcard .body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.price{font-weight:900;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.price small{color:#9a9aa6;font-weight:600;font-size:.78rem}
+.price s{color:#6b6b75;font-size:.8rem}
+.btn{padding:10px 14px;border-radius:999px;font-weight:900;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.btn-p{background:#fff;color:#000}.btn-p:hover{background:#e8c15a}
+.btn-g{background:transparent;color:#fff;border:1px solid #2a2a33}
+.sotm{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:700px){.sotm{grid-template-columns:1fr}}
+.sotm-card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:1.25rem;padding:18px;text-align:center}
+.sotm-card img{width:72px;height:72px;border-radius:14px;background:#000;border:1px solid #333;image-rendering:pixelated}
+.dc{width:72px;height:72px;border-radius:50%;padding:3px;background:conic-gradient(#e8c15a,#fff,#e8c15a)} .dc img{width:100%;height:100%;border-radius:50%;background:#111}
+.board{display:grid;gap:8px;max-height:300px;overflow:auto}
+.row{display:flex;align-items:center;gap:10px;background:#0d0d13;border:1px solid #23232a;border-radius:12px;padding:8px 10px;font-size:.82rem}
+.row b{margin-left:auto;background:#fff;color:#000;border-radius:999px;padding:2px 8px;font-size:.72rem}
+.buyers{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.buyer{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:1.25rem;padding:14px;text-align:center}
+.buyer img{width:48px;height:48px;border-radius:10px;background:#000;image-rendering:pixelated}
+.buyer b{font-size:.85rem;display:block;margin-top:6px}
+.buyer small{color:#e8c15a;font-weight:800;font-size:.7rem}
+.payicons{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.payicons span{border:1px solid #23232a;background:#0c0c10;padding:7px 10px;border-radius:999px;font-weight:800;font-size:.75rem}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:#0b0b10;border-left:1px solid #23232a;transform:translateX(100%);transition:.3s;z-index:60;display:flex;flex-direction:column}
+.drawer.open{transform:none}.drawer head{padding:18px;border-bottom:1px solid #23232a;display:flex;justify-content:space-between;align-items:center}
 .items{flex:1;overflow:auto;padding:16px;display:grid;gap:10px}
-.total{border-top:1px solid #24242e;padding:16px;display:grid;gap:10px}
-.check{width:100%;background:#e8c15a;color:#000;border:none;border-radius:12px;padding:14px;font-weight:900;cursor:pointer}
-footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8a8a96}
-.reveal{opacity:0;transform:translateY(14px);transition:.6s}.reveal.show{opacity:1;transform:none}
+.total{border-top:1px solid #23232a;padding:16px;display:grid;gap:10px}
+.check{width:100%;background:#e8c15a;color:#000;border:none;border-radius:12px;padding:12px;font-weight:900;cursor:pointer}
+#preview{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}
+#preview.show{display:grid}
+footer{border-top:1px solid #23232a;padding:24px 20px;text-align:center;color:#8a8a96}
 </style>
 </head>
 <body>
@@ -70,84 +77,111 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
 </nav>
 
 <div style="background:radial-gradient(circle at top,#1e1505 0%,#141414 42%,#0a0a0a 100%);border-bottom:1px solid rgba(255,255,255,.05)">
-  <div class="wrap" style="padding-bottom:24px">
-    <div style="background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);border-radius:2rem;padding:28px;display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center">
+  <div class="wrap" style="padding-bottom:20px">
+    <div style="background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);border-radius:1.5rem;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div>
-        <div style="display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(232,193,90,.25);background:rgba(232,193,90,.08);padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.2em">✦ SylenMC Network • Tienda Oficial</div>
-        <h1 style="font-size:clamp(2rem,5vw,3.2rem);margin:12px 0 8px;line-height:1">TIENDA <span style="background:linear-gradient(92deg,#e8c15a,#fff);-webkit-background-clip:text;background-clip:text;color:transparent">OFICIAL</span></h1>
-        <p class="muted">Rangos, cosméticos, comandos y kits — por modalidad o para toda la Network. Entrega instantánea.</p>
-        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><a href="#productos" class="cart" style="text-decoration:none">🛍️ Ver productos</a><a href="https://discord.gg/uQFkw4ssKJ" target="_blank" style="border:1px solid #2a2a33;padding:10px 14px;border-radius:999px;font-weight:800">💎 Discord</a></div>
+        <div style="display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(232,193,90,.22);background:rgba(232,193,90,.08);padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.18em">✦ SylenMC Network • Tienda Oficial</div>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.6rem);margin:10px 0 6px">TIENDA <span style="background:linear-gradient(92deg,#e8c15a,#fff);-webkit-background-clip:text;background-clip:text;color:transparent">OFICIAL</span></h1>
+        <p class="muted" style="margin:0">Elige modalidad y si lo quieres solo ahí o en toda la Network (+35%).</p>
       </div>
-      <div style="background:#0f0f12;border:1px solid rgba(255,255,255,.06);border-radius:1.5rem;padding:18px">
-        <div style="font-family:'JetBrains Mono';font-size:.7rem;letter-spacing:.2em;color:#9a9aa6">VENTAJA NETWORK</div>
-        <div style="font-size:1.1rem;font-weight:900;margin:6px 0">Compra una vez, úsalo en <span style="color:#e8c15a">toda la red</span></div>
-        <p class="muted" style="margin:0">Modalidad = solo ahí. Network = Survival OP + Semi-Anárquico + SimsonBox (+35%).</p>
-        <div class="payicons" id="payTop"></div>
-      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><div class="payicons" id="payTop"></div></div>
     </div>
   </div>
 </div>
 
-<div class="wrap" style="padding-top:24px">
-  <div class="grid">
-    <!-- LEFT -->
-    <div style="display:grid;gap:16px;align-content:start">
+<div class="wrap" style="padding-top:18px">
+  <div class="layout">
+    <aside class="side">
+      <div class="card">
+        <h3>📦 Paquetes</h3>
+        <div id="pkgList">
+          <div class="pkg active" data-f="rango-p"><span class="ico">👑</span> Rangos</div>
+          <div class="pkg" data-f="rango-t"><span class="ico">⏳</span> Rangos Temporales</div>
+          <div class="pkg" data-f="coins"><span class="ico">🗝️</span> Llaves de Cajas</div>
+          <div class="pkg" data-f="kits"><span class="ico">🎒</span> Items Customs</div>
+          <div class="pkg" data-f="cosm"><span class="ico">🎨</span> Cosméticos</div>
+          <div class="pkg" data-f="cmd"><span class="ico">⌨️</span> Extras — Comandos</div>
+        </div>
+        <div class="muted" style="margin-top:10px">Filtra por tipo. Usa las modalidades arriba para ver el precio correcto.</div>
+      </div>
+
       <div class="card">
         <h3>🔐 Login</h3>
-        <p class="muted">Nick de Minecraft + Discord opcional (para entrega automática del rango en MC y Discord).</p>
-        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><input id="mcNick" placeholder="Tu nick" style="flex:1;min-width:140px;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff"><button id="loginBtn" class="chip active">Entrar</button></div>
-        <button id="dcBtn" style="margin-top:8px;width:100%;background:#5865F2;color:#fff;border:none;border-radius:12px;padding:10px;font-weight:900;cursor:pointer">🔗 Conectar Discord (opcional)</button>
-        <p class="muted" id="loginMsg" style="margin:8px 0 0"></p>
+        <p class="muted">Nick + Discord opcional para entrega automática.</p>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><input id="mcNick" placeholder="Tu nick" style="flex:1;min-width:120px;background:#0c0c10;border:1px solid #23232a;border-radius:10px;padding:10px;color:#fff"><button id="loginBtn" class="chip active" style="padding:10px 14px">Entrar</button></div>
+        <button id="dcBtn" style="margin-top:8px;width:100%;background:#5865F2;color:#fff;border:none;border-radius:10px;padding:10px;font-weight:900;cursor:pointer">🔗 Conectar Discord</button>
+        <p class="muted" id="loginMsg" style="margin:6px 0 0"></p>
         <p class="muted" id="dcMsg" style="margin:4px 0 0"></p>
-        <p class="muted" id="dcRemind" style="margin:6px 0 0;display:none;color:#e8c15a">⚠️ Conecta tu Discord para recibir el rango también en Discord automáticamente. Puedes comprar igual, pero te lo recordamos.</p>
       </div>
+
+      <div class="card">
+        <h3>📊 Server Stats</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+          <div style="background:#0c0c10;border:1px solid #23232a;border-radius:12px;padding:12px;text-align:center"><div class="muted" style="font-size:.7rem">Minecraft</div><b id="mcCount">—</b></div>
+          <div style="background:#0c0c10;border:1px solid #23232a;border-radius:12px;padding:12px;text-align:center"><div class="muted" style="font-size:.7rem">Discord</div><b id="dcCount">—</b></div>
+        </div>
+        <button id="copyIp" class="chip active" style="width:100%;margin-top:10px;justify-content:center">📋 Copiar IP — play.sylenmc.xyz</button>
+        <p class="muted" id="ipMsg" style="margin-top:6px"></p>
+      </div>
+
       <div class="card">
         <h3>💬 ¿Necesitas ayuda?</h3>
-        <p class="muted">Soporte de pagos y entregas en Discord.</p>
-        <a href="https://discord.gg/uQFkw4ssKJ" target="_blank" style="margin-top:8px;display:inline-flex;gap:8px;align-items:center;background:#5865F2;color:#fff;padding:10px 14px;border-radius:12px;font-weight:900">Join Discord →</a>
+        <p class="muted">Soporte de pagos y entregas.</p>
+        <a href="https://discord.gg/uQFkw4ssKJ" target="_blank" style="margin-top:8px;display:inline-flex;gap:8px;align-items:center;background:#5865F2;color:#fff;padding:10px 14px;border-radius:10px;font-weight:900">Join Discord →</a>
         <div class="payicons" id="payHelp"></div>
       </div>
+
       <div class="card">
         <h3>🛒 Bolsa</h3>
-        <p class="muted">Carrito vacío por ahora.</p>
         <div id="miniCart" style="display:grid;gap:8px;margin-top:8px"></div>
         <div style="display:flex;justify-content:space-between;font-weight:900;margin-top:8px"><span>Total</span><span id="miniTotal">$0.00</span></div>
         <button id="openCart2" class="chip active" style="margin-top:8px;width:100%">Abrir carrito</button>
       </div>
-      <div class="card" id="sotmCard">
-        <h3>⭐ Staff del Mes</h3>
-        <p class="muted">Mismo bot y base de datos de la Staff Page.</p>
-        <div style="display:flex;justify-content:center;gap:14px;margin:12px 0">
-          <div><img id="sSkin" src="https://minotar.net/helm/MHF_Steve/100.png"><div class="muted" style="font-size:.7rem">Minecraft</div></div>
-          <div><div class="dc"><img id="sAv" src="https://cdn.discordapp.com/embed/avatars/0.png"></div><div class="muted" style="font-size:.7rem">Discord</div></div>
-        </div>
-        <div style="text-align:center"><b id="sNick">—</b><div class="muted" id="sDc">—</div><div style="margin-top:8px"><b id="sPts" style="font-size:1.6rem">0</b> puntos</div><div class="muted" id="sMonth">—</div></div>
-        <div class="board" id="board" style="margin-top:12px"></div>
-      </div>
-    </div>
-    <!-- RIGHT -->
-    <div>
-      <div id="mods" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    </aside>
+
+    <main>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" id="mods">
         <button class="mod active" data-m="all">Todas</button>
         <button class="mod" data-m="survival">Survival OP</button>
         <button class="mod" data-m="semi">Semi-Anárquico</button>
         <button class="mod" data-m="simson">SimsonBox</button>
         <button class="mod" data-m="network">Network</button>
       </div>
-      <div class="scope" style="margin-bottom:12px">
-        <div class="switch" id="scope"><button class="active" data-s="modal">Solo modalidad</button><button data-s="network">Toda la Network (+35%)</button></div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+        <div class="chip active" id="scope" style="display:flex;gap:6px;padding:4px"><button class="chip active" data-s="modal" style="padding:6px 10px">Solo modalidad</button><button class="chip" data-s="network" style="padding:6px 10px">Toda la Network (+35%)</button></div>
+        <span class="muted">Network = en las 3 modalidades.</span>
       </div>
-      <div id="filters" class="chips" style="margin-bottom:14px">
-        <button class="chip active" data-f="all">✨ Todo</button>
-        <button class="chip" data-f="rango-p">👑 Rangos Perm.</button>
-        <button class="chip" data-f="rango-t">⏳ Rangos Temp.</button>
-        <button class="chip" data-f="cosm">🎨 Cosméticos</button>
-        <button class="chip" data-f="cmd">⌨️ Comandos</button>
-        <button class="chip" data-f="kits">🎒 Kits</button>
-        <button class="chip" data-f="coins">🪙 Coins/Llaves</button>
+
+      <div style="display:flex;align-items:center;gap:10px;margin:14px 0 10px">
+        <span style="width:4px;height:18px;background:#e8c15a;border-radius:999px;display:inline-block"></span>
+        <h3 style="font-size:1rem">Ranks Packages</h3>
+        <span class="muted" id="countInfo"></span>
       </div>
       <div class="products" id="grid"></div>
-    </div>
+
+      <div class="sotm">
+        <div class="sotm-card">
+          <h3>⭐ Staff del Mes</h3>
+          <div style="display:flex;justify-content:center;gap:14px;margin:12px 0">
+            <div><img id="sSkin" src="https://minotar.net/helm/MHF_Steve/100.png"><div class="muted" style="font-size:.7rem">Minecraft</div></div>
+            <div><div class="dc"><img id="sAv" src="https://cdn.discordapp.com/embed/avatars/0.png"></div><div class="muted" style="font-size:.7rem">Discord</div></div>
+          </div>
+          <div style="text-align:center"><b id="sNick">—</b><div class="muted" id="sDc">—</div><div style="margin-top:8px"><b id="sPts" style="font-size:1.6rem">0</b> puntos</div><div class="muted" id="sMonth">—</div></div>
+          <div class="board" id="board" style="margin-top:12px"></div>
+        </div>
+        <div class="sotm-card">
+          <h3>🏆 Comprador del Mes</h3>
+          <p class="muted">Top gastador verificado. Se actualiza con cada compra.</p>
+          <div id="buyerMonth" style="margin:12px 0"><div class="muted">Aún no hay compras este mes.</div></div>
+          <div class="board" id="recentBuyers"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px" class="card">
+        <h3>🕘 Recent Buyers</h3>
+        <div id="recentGrid" class="buyers" style="margin-top:10px"></div>
+      </div>
+    </main>
   </div>
 </div>
 
@@ -156,87 +190,89 @@ footer{border-top:1px solid #24242e;padding:28px 20px;text-align:center;color:#8
   <div class="items" id="cartItems"></div>
   <div class="total"><div style="display:flex;justify-content:space-between;font-weight:900"><span>Total</span><span id="cartTotal">$0.00</span></div>
   <div class="payicons" id="payDrawer"></div>
-  <input id="checkoutNick" placeholder="Tu nick para entrega" style="background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:10px;color:#fff">
+  <input id="checkoutNick" placeholder="Tu nick para entrega" style="background:#0c0c10;border:1px solid #23232a;border-radius:10px;padding:10px;color:#fff">
   <div style="display:grid;gap:8px">
     <button class="check" id="checkout">Pagar por Discord</button>
     <button class="check" id="payPal" style="background:#003087;color:#fff">Pagar con PayPal</button>
     <button class="check" id="daviBtn" style="background:#e30613;color:#fff">Pagar con DaviPlata 🇨🇴</button>
-    <div id="daviBox" style="display:none;background:#0c0c10;border:1px solid #24242e;border-radius:12px;padding:12px">
-      <b style="font-size:.9rem">DaviPlata Colombia</b><p class="muted" style="margin:6px 0">Transfiere al número del owner (coloca aquí tu número). Luego sube comprobante por Discord.</p>
-      <div style="font-family:'JetBrains Mono';font-weight:900;font-size:1.2rem;text-align:center;padding:8px;background:#fff;color:#000;border-radius:10px" id="daviNum">🇨🇴 +57 3053957676</div>
-      <small class="muted">Copia el número, transfiere y sube comprobante. Métodos locales se adaptan a tu país automáticamente.</small>
+    <div id="daviBox" style="display:none;background:#0c0c10;border:1px solid #23232a;border-radius:12px;padding:12px">
+      <b style="font-size:.9rem">DaviPlata Colombia</b><p class="muted" style="margin:6px 0">Transfiere a <b>+57 3053957676</b> y sube comprobante por Discord.</p>
+      <div style="font-family:'JetBrains Mono';font-weight:900;font-size:1.2rem;text-align:center;padding:8px;background:#fff;color:#000;border-radius:10px">🇨🇴 +57 3053957676</div>
     </div>
   </div>
-  <p class="muted" style="font-size:.8rem">Elige modalidad arriba. Network cuesta +35% y se activa en las 3. Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop).</p></div>
+  <p class="muted" style="font-size:.78rem">Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop).</p></div>
 </aside>
-<div id="preview" style="display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);place-items:center;padding:20px" onclick="if(event.target===this)closePreview()"><div style="background:#141414;border:1px solid #24242e;border-radius:22px;max-width:520px;width:100%;padding:22px;text-align:center;animation:pop .3s"><div id="pvEmoji" style="font-size:4rem;animation:float 2s ease-in-out infinite">🎒</div><h3 id="pvTitle">Preview</h3><p class="muted" id="pvDesc"></p><p class="muted" id="pvMods" style="font-family:'JetBrains Mono';font-size:.75rem"></p><button class="buy" style="margin-top:12px" onclick="closePreview()">Cerrar</button></div></div>
-<style>@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style>
-<footer>© 2026 SylenMC Network • Tienda Oficial • © Discohikorybrs - Daniel Esteban Vera Fernandez<br><small class="muted">Tags de países se compran dentro del juego con dinero del servidor ($25.000 en /tags-shop). Kits y cosméticos varían por modalidad.</small></footer>
+
+<div id="preview"><div style="background:#141414;border:1px solid #23232a;border-radius:1.25rem;max-width:520px;width:100%;padding:22px;text-align:center;position:relative"><button onclick="closePreview()" style="position:absolute;top:10px;right:10px;background:#23232a;color:#fff;border:none;border-radius:999px;width:28px;height:28px;cursor:pointer">✕</button><div id="pvEmoji" style="font-size:4rem;animation:float 2s ease-in-out infinite">🎒</div><h3 id="pvTitle">Preview</h3><p class="muted" id="pvDesc"></p><p class="muted" id="pvMods" style="font-family:'JetBrains Mono';font-size:.75rem"></p><div style="display:flex;gap:8px;justify-content:center;margin-top:12px"><button class="btn-p" style="padding:10px 14px;border-radius:999px;border:none;font-weight:900;cursor:pointer" onclick="addFromPreview()">Añadir al carrito</button><button class="btn-g" style="padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer" onclick="closePreview()">Cerrar</button></div></div></div>
+<style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style>
+
+<footer>© 2026 SylenMC Network • Tienda Oficial • © Discohikorybrs - Daniel Esteban Vera Fernandez</footer>
 
 <script>
-// Login: nick + Discord OAuth opcional
-const nickInput=document.getElementById('mcNick'),loginBtn=document.getElementById('loginBtn'),loginMsg=document.getElementById('loginMsg'),dcBtn=document.getElementById('dcBtn'),dcMsg=document.getElementById('dcMsg'),dcRemind=document.getElementById('dcRemind');
+const nickInput=document.getElementById('mcNick'),loginBtn=document.getElementById('loginBtn'),loginMsg=document.getElementById('loginMsg'),dcBtn=document.getElementById('dcBtn'),dcMsg=document.getElementById('dcMsg');
 let MC_NICK=localStorage.getItem('sylen-mc')||'';
 let DC_ID=localStorage.getItem('sylen-dc-id')||'', DC_NAME=localStorage.getItem('sylen-dc-name')||'';
-function refreshDiscordUI(){ if(DC_ID){dcMsg.textContent='✔ Discord: '+DC_NAME+' ('+DC_ID+')'; dcBtn.textContent='🔗 Discord conectado'; dcRemind.style.display='none';} else {dcMsg.textContent='Discord opcional — recomendado para entrega automática'; dcRemind.style.display='block'; dcBtn.textContent='🔗 Conectar Discord (opcional)';}}
+function refreshDiscordUI(){ const el=document.getElementById('dcMsg'); if(DC_ID){el.textContent='✔ Discord: '+DC_NAME}else{el.textContent='Discord opcional — recomendado'}}
 if(MC_NICK){nickInput.value=MC_NICK;loginMsg.textContent='Logueado como '+MC_NICK}
 refreshDiscordUI();
-// OAuth callback
 (function(){const h=location.hash;if(h.includes('access_token')){const p=new URLSearchParams(h.substring(1));const t=p.get('access_token');if(t){fetch('https://discord.com/api/users/@me',{headers:{Authorization:'Bearer '+t}}).then(r=>r.json()).then(u=>{DC_ID=u.id;DC_NAME=u.username;localStorage.setItem('sylen-dc-id',DC_ID);localStorage.setItem('sylen-dc-name',DC_NAME);refreshDiscordUI();history.replaceState(null,'',location.pathname+location.search);}).catch(()=>{});}}})();
 loginBtn.onclick=()=>{const v=nickInput.value.trim();if(!v)return loginMsg.textContent='Escribe tu nick';localStorage.setItem('sylen-mc',v);MC_NICK=v;loginMsg.textContent='✔ Logueado como '+v;document.getElementById('checkoutNick').value=v};
-dcBtn.onclick=()=>{const cid='1550563034118889583';const red=encodeURIComponent(location.href.split('#')[0]);location.href=`https://discord.com/oauth2/authorize?client_id=${cid}&response_type=token&redirect_uri=${red}&scope=identify`};
+if(dcBtn) dcBtn.onclick=()=>{const cid='1550563034118889583';const red=encodeURIComponent(location.href.split('#')[0]);location.href=`https://discord.com/oauth2/authorize?client_id=${cid}&response_type=token&redirect_uri=${red}&scope=identify`};
 document.getElementById('daviBtn').onclick=()=>{const b=document.getElementById('daviBox');b.style.display=b.style.display==='none'?'block':'none'};
- // Preview modal helper
- window.openPreview=(id)=>{const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const m=document.getElementById('preview');document.getElementById('pvEmoji').textContent=p.emoji;document.getElementById('pvTitle').textContent=p.title;document.getElementById('pvDesc').textContent=p.desc;document.getElementById('pvMods').textContent=(p.mods||[]).join(' • ');m.style.display='grid'};
- window.closePreview=()=>document.getElementById('preview').style.display='none';
+let PREVIEW_ID=null;
+window.openPreview=(id)=>{const p=PRODUCTS.find(x=>x.id===id);if(!p)return;PREVIEW_ID=id;document.getElementById('pvEmoji').textContent=p.emoji;document.getElementById('pvTitle').textContent=p.title;document.getElementById('pvDesc').textContent=p.desc;document.getElementById('pvMods').textContent=(p.mods||[]).join(' • ');document.getElementById('preview').style.display='grid'};
+window.closePreview=()=>{document.getElementById('preview').style.display='none'; PREVIEW_ID=null};
+window.addFromPreview=()=>{if(PREVIEW_ID){const b=document.querySelector(`.buy[data-id="${PREVIEW_ID}"]`); if(b) b.click(); closePreview();}};
+document.getElementById('preview').addEventListener('click',e=>{if(e.target.id==='preview') closePreview()});
 
-// Productos SylenMC — Rangos principales Verdugo → Brasa (mayor a menor) + VIPs
+// Products
 const PRODUCTS=[
- // RANGOS SYLENMC (de mayor a menor) — núcleo de la red
- {id:'verdugo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'😈',title:'VERDUGO',price:{survival:29.99,semi:24.99,simson:22.99},desc:'Rango máximo SylenMC — todo incluido + tag exclusivo',preview:'😈 VERDUGO — El rango supremo'},
- {id:'demonio-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👹',title:'DEMONIO',price:{survival:19.99,semi:16.99,simson:15.99},desc:'Debajo de Verdugo — kits demoníacos',preview:'👹 DEMONIO — poder oscuro'},
- {id:'magma-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🌋',title:'MAGMA',price:{survival:14.99,semi:11.99,simson:10.99},desc:'Rango intermedio — magma y fuego',preview:'🌋 MAGMA — lava'},
- {id:'abismo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🕳️',title:'ABISMO',price:{survival:9.99,semi:7.99,simson:6.99},desc:'Rango medio — abismo',preview:'🕳️ ABISMO — profundo'},
- {id:'brasa-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🔥',title:'BRASA',price:{survival:4.99,semi:3.49,simson:3.99},desc:'Rango inicial SylenMC',preview:'🔥 BRASA — inicio'},
- {id:'vip-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👑',title:'VIP Permanente',price:{survival:4.99,semi:3.99,simson:4.49},desc:'Kit VIP + 2 homes + color en chat',preview:'👑 VIP — tag dorado + kit completo'},
- {id:'mvp-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'💎',title:'MVP Permanente',price:{survival:9.99,semi:7.99,simson:8.99},desc:'VIP + fly + tag exclusivo',preview:'💎 MVP — brillo y vuelo'},
- {id:'legend-p',cat:'rango-p',mods:['survival','semi'],emoji:'⭐',title:'LEGEND Permanente',price:{survival:19.99,semi:14.99},desc:'MVP + kits legend + prioridad',preview:'⭐ LEGEND — lo máximo'},
+ {id:'verdugo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'😈',img:'🛡️',title:'VERDUGO',price:{survival:29.99,semi:24.99,simson:22.99},desc:'Rango máximo SylenMC — todo incluido + tag exclusivo'},
+ {id:'demonio-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👹',img:'⚔️',title:'DEMONIO',price:{survival:19.99,semi:16.99,simson:15.99},desc:'Debajo de Verdugo — kits demoníacos'},
+ {id:'magma-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🌋',img:'🔥',title:'MAGMA',price:{survival:14.99,semi:11.99,simson:10.99},desc:'Rango intermedio — magma y fuego'},
+ {id:'abismo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🕳️',img:'⛏️',title:'ABISMO',price:{survival:9.99,semi:7.99,simson:6.99},desc:'Rango medio — abismo'},
+ {id:'brasa-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🔥',img:'🏹',title:'BRASA',price:{survival:4.99,semi:3.49,simson:3.99},desc:'Rango inicial SylenMC'},
  {id:'vip-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'VIP 30 días',price:{survival:2.49,semi:1.99,simson:2.29},desc:'Prueba VIP por 30 días'},
  {id:'mvp-t',cat:'rango-t',mods:['survival','semi'],emoji:'⏳',title:'MVP 30 días',price:{survival:4.99,semi:3.99},desc:'Prueba MVP por 30 días'},
- // tags exclusivos de lobby (real money) — país se compra dentro del juego por $25k, no aquí
- {id:'tag-zorro',cat:'cosm',mods:['survival'],emoji:'🦊',title:'Tag ZORRO (lobby exclusivo)',price:{survival:2.49},desc:'Exclusivo del lobby — eventos',preview:'🦊 ZORRO — naranja fuego'},
- {id:'tag-leyenda',cat:'cosm',mods:['semi'],emoji:'🌟',title:'Tag LEYENDA (semi exclusivo)',price:{semi:2.99},desc:'Solo Semi-Anárquico',preview:'🌟 LEYENDA — dorado'},
- {id:'tag-simson',cat:'cosm',mods:['simson'],emoji:'📦',title:'Tag SIMSON (box exclusivo)',price:{simson:1.99},desc:'Solo SimsonBox',preview:'📦 SIMSON — pixelado'},
- {id:'trail-survival',cat:'cosm',mods:['survival'],emoji:'✨',title:'Trail Survival (corazones)',price:{survival:3.49},desc:'Partículas al caminar — Survival',preview:'✨ Trail corazones'},
- {id:'trail-semi',cat:'cosm',mods:['semi'],emoji:'💨',title:'Trail Semi (humo)',price:{semi:2.99},desc:'Humo anárquico — Semi',preview:'💨 Trail humo'},
- {id:'trail-simson',cat:'cosm',mods:['simson'],emoji:'🧱',title:'Trail Simson (bloques)',price:{simson:2.49},desc:'Bloques al pisar — SimsonBox',preview:'🧱 Trail bloques'},
+ {id:'tag-zorro',cat:'cosm',mods:['survival'],emoji:'🦊',title:'Tag ZORRO (lobby exclusivo)',price:{survival:2.49},desc:'Exclusivo del lobby — eventos'},
+ {id:'trail-survival',cat:'cosm',mods:['survival'],emoji:'✨',title:'Trail Survival (corazones)',price:{survival:3.49},desc:'Partículas al caminar — Survival'},
+ {id:'trail-semi',cat:'cosm',mods:['semi'],emoji:'💨',title:'Trail Semi (humo)',price:{semi:2.99},desc:'Humo anárquico — Semi'},
+ {id:'trail-simson',cat:'cosm',mods:['simson'],emoji:'🧱',title:'Trail Simson (bloques)',price:{simson:2.49},desc:'Bloques al pisar — SimsonBox'},
  {id:'fly',cat:'cmd',mods:['survival','semi'],emoji:'🪽',title:'/fly',price:{survival:4.99,semi:3.99},desc:'Vuelo en tu mundo'},
  {id:'heal',cat:'cmd',mods:['survival','semi','simson'],emoji:'❤️',title:'/heal + /feed',price:{survival:2.99,semi:2.49,simson:2.49},desc:'Cura y comida'},
- {id:'kit-survival',cat:'kits',mods:['survival'],emoji:'🎒',title:'Kit Survival OP',price:{survival:3.49},desc:'Full diamante + espada OP — Survival',preview:'🎒 Kit Survival — armadura diamantada'},
- {id:'kit-semi',cat:'kits',mods:['semi'],emoji:'🪓',title:'Kit Semi-Anárquico',price:{semi:2.99},desc:'Kit anárquico con gapples — Semi',preview:'🪓 Kit Semi — hacha y manzanas'},
- {id:'kit-simson',cat:'kits',mods:['simson'],emoji:'📦',title:'Kit SimsonBox',price:{simson:2.99},desc:'Kit caja sorpresa — SimsonBox',preview:'📦 Kit Simson — caja misteriosa'},
+ {id:'kit-survival',cat:'kits',mods:['survival'],emoji:'🎒',title:'Kit Survival OP',price:{survival:3.49},desc:'Full diamante + espada OP — Survival'},
+ {id:'kit-semi',cat:'kits',mods:['semi'],emoji:'🪓',title:'Kit Semi-Anárquico',price:{semi:2.99},desc:'Kit anárquico con gapples — Semi'},
+ {id:'kit-simson',cat:'kits',mods:['simson'],emoji:'📦',title:'Kit SimsonBox',price:{simson:2.99},desc:'Kit caja sorpresa — SimsonBox'},
  {id:'coins10k',cat:'coins',mods:['survival','semi','simson'],emoji:'🪙',title:'10.000 Coins',price:{survival:4.99,semi:2.99,simson:3.99},desc:'Moneda interna'},
  {id:'keys5',cat:'coins',mods:['survival','semi'],emoji:'🗝️',title:'5 Llaves Místicas',price:{survival:6.99,semi:4.99},desc:'Cofres místicos'},
 ];
-let MOD='all', CAT='all', SCOPE='modal';
+let MOD='all', CAT='rango-p', SCOPE='modal';
 function priceOf(p){let base=MOD==='all'||MOD==='network'?p.price.survival:(p.price[MOD]??Object.values(p.price)[0]);if(SCOPE==='network')base=Math.round(base*1.35*100)/100;return base}
-const grid=document.getElementById('grid');
+const grid=document.getElementById('grid'),countInfo=document.getElementById('countInfo');
 function render(){
  grid.innerHTML='';
- PRODUCTS.filter(p=> (MOD==='all'||MOD==='network'||p.mods.includes(MOD)) && (CAT==='all'||p.cat===CAT)).forEach(p=>{
+ const list=PRODUCTS.filter(p=> (MOD==='all'||MOD==='network'||p.mods.includes(MOD)) && (CAT==='all'||p.cat===CAT));
+ countInfo.textContent=list.length+' paquetes';
+ list.forEach(p=>{
   const pr=priceOf(p);
   const d=document.createElement('div');d.className='pcard';
   const mods=p.mods.map(m=>m==='survival'?'Survival OP':m==='semi'?'Semi':m==='simson'?'SimsonBox':m).join(' • ');
-  const previewBtn = (p.preview? `<button class="buy2" style="margin-top:6px;padding:8px;border-radius:10px;cursor:pointer" onclick="openPreview('${p.id}')">👁️ Vista previa</button>`:'');
-  d.innerHTML=`<div class="img" style="cursor:pointer" onclick="openPreview('${p.id}')">${p.emoji}</div><div class="body"><div style="font-family:'JetBrains Mono';font-size:.62rem;color:#9a9aa6;border:1px solid #24242e;padding:4px 8px;border-radius:999px;width:fit-content">${p.cat} • ${mods}</div><h3>${p.title}</h3><p class="muted">${p.desc}</p><div class="price">$${pr.toFixed(2)} <small class="muted">${SCOPE==='network'?'Network':MOD==='all'?'modalidad':MOD}</small></div>${previewBtn}<button class="buy" data-id="${p.id}">Añadir al carrito</button></div>`;
+  const old = p.price.survival && SCOPE==='modal' ? '' : '';
+  d.innerHTML=`<div class="img" onclick="openPreview('${p.id}')"><span style="font-size:3.2rem">${p.img||p.emoji}</span></div><div class="body"><div style="font-family:'JetBrains Mono';font-size:.62rem;color:#9a9aa6;border:1px solid #23232a;padding:4px 8px;border-radius:999px;width:fit-content">${p.cat} • ${mods}</div><h3 style="display:flex;gap:6px;align-items:center">${p.emoji} ${p.title}</h3><p class="muted">${p.desc}</p><div class="price">$${pr.toFixed(2)} <small class="muted">${SCOPE==='network'?'Network':MOD==='all'?'modalidad':MOD}</small></div><div style="display:flex;gap:6px;margin-top:6px"><button class="buy" style="flex:1" data-id="${p.id}">🛒 Añadir</button><button class="muted" style="background:transparent;border:1px solid #23232a;border-radius:10px;padding:8px;cursor:pointer" onclick="openPreview('${p.id}')">👁️</button></div></div>`;
   grid.appendChild(d);
  });
  if(!grid.children.length) grid.innerHTML='<p class="muted">Sin productos en esta combinación.</p>';
 }
 render();
-document.getElementById('mods').addEventListener('click',e=>{if(e.target.classList.contains('mod')){document.querySelectorAll('#mods .mod').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');MOD=e.target.dataset.m;if(MOD==='network')SCOPE='network';render()}});
-document.getElementById('filters').addEventListener('click',e=>{if(e.target.classList.contains('chip')){document.querySelectorAll('#filters .chip').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');CAT=e.target.dataset.f;render()}});
-document.getElementById('scope').addEventListener('click',e=>{if(e.target.dataset.s){document.querySelectorAll('#scope button').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');SCOPE=e.target.dataset.s;render();update()}});
+document.getElementById('mods').addEventListener('click',e=>{
+ const b=e.target.closest('.mod'); if(!b) return;
+ document.querySelectorAll('#mods .mod').forEach(x=>x.classList.remove('active'));b.classList.add('active');MOD=b.dataset.m;if(MOD==='network')SCOPE='network';render();
+});
+document.querySelectorAll('.pkg').forEach(el=>el.addEventListener('click',()=>{
+ document.querySelectorAll('.pkg').forEach(x=>x.classList.remove('active'));el.classList.add('active');CAT=el.dataset.f;render();
+ const scopeEl=document.getElementById('scope'); if(scopeEl) {document.querySelectorAll('#scope button').forEach(x=>x.classList.remove('active'));const want=CAT==='rango-p'||CAT==='coins'?'modal':SCOPE; const btn=scopeEl.querySelector(`[data-s="${want}"]`); if(btn) btn.classList.add('active');}
+}));
+document.getElementById('scope').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b||!b.dataset.s) return;document.querySelectorAll('#scope button').forEach(x=>x.classList.remove('active'));b.classList.add('active');SCOPE=b.dataset.s;render();update()});
 // Cart
 let CART=JSON.parse(localStorage.getItem('sylen-cart')||'[]');
 const countEl=document.getElementById('cartCount'),mini=document.getElementById('miniCart'),miniTotal=document.getElementById('miniTotal'),itemsEl=document.getElementById('cartItems'),totalEl=document.getElementById('cartTotal');
@@ -249,9 +285,11 @@ function update(){
   const row=document.createElement('div');row.className='row';row.innerHTML=`<span>${p.emoji} ${p.title} <small class="muted">${it.scope==='network'?'Network':it.mod}</small> x${it.qty}</span><b>$${(pr*it.qty).toFixed(2)}</b> <button data-i="${i}" style="margin-left:6px">✕</button>`;itemsEl.appendChild(row);
   const mrow=document.createElement('div');mrow.className='row';mrow.style.fontSize='.82rem';mrow.innerHTML=`<span>${p.emoji} ${p.title} x${it.qty}</span><b>$${(pr*it.qty).toFixed(2)}</b>`;mini.appendChild(mrow);
  });
- totalEl.textContent='$'+t.toFixed(2);miniTotal.textContent='$'+t.toFixed(2);save();
+ totalEl.textContent='$'+t.toFixed(2);if(miniTotal) miniTotal.textContent='$'+t.toFixed(2);save();
+ // Recent buyers mock from Supabase orders
+ renderRecent();
 }
-grid.addEventListener('click',e=>{if(e.target.classList.contains('buy')){const id=e.target.dataset.id;const p=PRODUCTS.find(x=>x.id===id);const mod=MOD==='all'||MOD==='network'?'survival':MOD;const pr=priceOf(p);let f=CART.find(x=>x.id===id && x.scope===SCOPE && x.mod===mod);if(f)f.qty++;else CART.push({id,scope:SCOPE,mod,pr,qty:1});update()}});
+grid.addEventListener('click',e=>{const b=e.target.closest('.buy'); if(!b) return; const id=b.dataset.id;const p=PRODUCTS.find(x=>x.id===id);const mod=MOD==='all'||MOD==='network'?'survival':MOD;const pr=priceOf(p);let f=CART.find(x=>x.id===id && x.scope===SCOPE && x.mod===mod);if(f)f.qty++;else CART.push({id,scope:SCOPE,mod,pr,qty:1});update(); document.getElementById('drawer').classList.add('open')});
 itemsEl.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){CART.splice(+e.target.dataset.i,1);update()}});
 document.getElementById('cartBtn').onclick=()=>document.getElementById('drawer').classList.add('open');
 document.getElementById('openCart2').onclick=()=>document.getElementById('drawer').classList.add('open');
@@ -260,14 +298,20 @@ function checkout(url){
  if(!CART.length)return alert('Carrito vacío');
  const nick=document.getElementById('checkoutNick').value.trim()||MC_NICK||'';
  if(!nick)return alert('Escribe tu nick para la entrega');
- if(!DC_ID) dcRemind.style.display='block';
  const msg=encodeURIComponent('Hola SylenMC! Quiero comprar ('+SCOPE+'):\n'+CART.map(it=>{const p=PRODUCTS.find(x=>x.id===it.id);return `- ${p.title} [${it.mod}] x${it.qty} ($${(it.pr*it.qty).toFixed(2)})`}).join('\n')+'\nTotal: '+totalEl.textContent+'\nNick: '+nick+'\nDiscord: '+(DC_ID? DC_NAME+' ('+DC_ID+')':'no vinculado')+'\nModalidad: '+(MOD==='network'?'Network':MOD));
  window.open(url,'_blank')
 }
 document.getElementById('checkout').onclick=()=>checkout('https://discord.gg/uQFkw4ssKJ');
 document.getElementById('payPal').onclick=()=>{if(!CART.length)return alert('Carrito vacío');const amt=totalEl.textContent.replace('$','');window.open('https://www.paypal.com/paypalme/discohikory/'+amt,'_blank'); checkout('https://discord.gg/uQFkw4ssKJ')};
+document.getElementById('daviBtn').onclick=()=>{const b=document.getElementById('daviBox');b.style.display=b.style.display==='none'?'block':'none'};
 update();
-// Pagos por país (detecta y muestra DaviPlata/PSE/Nequi + PayPal/MercadoPago/Stripe/Crypto)
+// Server stats (mock + live)
+fetch('https://api.mcsrvstat.us/3/play.sylenmc.xyz').then(r=>r.json()).then(j=>{
+ document.getElementById('mcCount').textContent=(j.players&&j.players.online!=null)? j.players.online+'/500' : '—';
+}).catch(()=>{document.getElementById('mcCount').textContent='—'});
+document.getElementById('dcCount').textContent='—';
+document.getElementById('copyIp').onclick=()=>{navigator.clipboard.writeText('play.sylenmc.xyz');const m=document.getElementById('ipMsg');m.textContent='✔ Copiado'; setTimeout(()=>m.textContent='',1500)};
+// Pagos por país
 const PAY_BY_COUNTRY={
  CO:['DaviPlata','Nequi','PSE','Bancolombia','PayPal','MercadoPago','Crypto'],
  MX:['MercadoPago','OXXO','SPEI','PayPal','Crypto'],
@@ -281,18 +325,21 @@ function renderPays(list, ids){
  const html=list.map(m=>`<span>${m==='DaviPlata'?'🇨🇴 DaviPlata':m==='PayPal'?'💳 PayPal':m}</span>`).join('');
  ids.forEach(id=>{const el=document.getElementById(id); if(el) el.innerHTML=html});
 }
-let detected='DEFAULT';
 fetch('https://ipapi.co/json/').then(r=>r.json()).then(j=>{
  const cc=(j.country_code||'').toUpperCase();
- detected=PAY_BY_COUNTRY[cc]?'CO' in PAY_BY_COUNTRY && cc==='CO'?'CO':cc in PAY_BY_COUNTRY?cc:'DEFAULT':'DEFAULT';
- // map cc to our key
  let key=cc in PAY_BY_COUNTRY?cc:'DEFAULT';
  renderPays(PAY_BY_COUNTRY[key]||PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']);
- if(key==='CO'){document.getElementById('daviBox')?.style && (document.getElementById('daviBox').style.display='block');}
+ if(key==='CO'){const b=document.getElementById('daviBox'); if(b) b.style.display='block';}
 }).catch(()=>renderPays(PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']));
-// init with default until fetch
 renderPays(PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']);
-// Supabase Staff del Mes (robusto + filtrado)
+// Supabase Staff + compradores
+let RECENT_CACHE=[];
+async function renderRecent(){
+ const el=document.getElementById('recentGrid'); if(!el) return;
+ if(!RECENT_CACHE.length){el.innerHTML='<p class="muted">Aún no hay compras este mes.</p>'; return;}
+ el.innerHTML=RECENT_CACHE.slice(0,6).map(r=>`<div class="buyer"><img src="https://minotar.net/helm/${encodeURIComponent(r.mc||'MHF_Steve')}/100.png" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'"><b>${r.mc||'—'}</b><small>Store Purchase • recent</small></div>`).join('');
+ const bm=document.getElementById('buyerMonth'); if(bm && RECENT_CACHE.length){const top=[...RECENT_CACHE].sort((a,b)=>(b.total||0)-(a.total||0))[0]; bm.innerHTML=`<div style="display:flex;gap:12px;align-items:center;justify-content:center"><img src="https://minotar.net/helm/${encodeURIComponent(top.mc)}/100.png" style="width:56px;height:56px;border-radius:12px;background:#000"><div style="text-align:left"><b>${top.mc}</b><div class="muted">Comprador del Mes — $${(top.total||0).toFixed(2)}</div></div></div>`}
+}
 (async()=>{
  try{
   const supa=supabase.createClient(SYLENMC_CLOUD.URL,SYLENMC_CLOUD.ANON);
@@ -308,9 +355,18 @@ renderPays(PAY_BY_COUNTRY.DEFAULT,['payTop','payDrawer','payHelp']);
     let pts=s.data.pts||0;const f=p.data&&p.data.find(r=>r.mc&&String(r.mc).toLowerCase()===String(s.data.mc).toLowerCase());if(f&&f.pts!=null)pts=f.pts;
     document.getElementById('sPts').textContent=pts;
     document.getElementById('sMonth').textContent=new Date().toLocaleString('es-ES',{month:'long',year:'numeric'});
-   } else { document.getElementById('sNick').textContent='—'; document.getElementById('sDc').textContent='Sin Staff del Mes aún'; }
+   }
    const board=document.getElementById('board');const entries=Object.entries(points).sort((a,b)=>(b[1].pts||0)-(a[1].pts||0)).slice(0,8);
    board.innerHTML=entries.length?entries.map(([k,v])=>`<div class="row"><img src="https://minotar.net/helm/${encodeURIComponent(v.mc)}/100.png" style="width:28px;height:28px;border-radius:8px;background:#000" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'"><span>${v.mc}</span><b>${v.pts} pts</b></div>`).join(''):'<p class="muted">Sin datos aún.</p>';
+   // Tienda pedidos (si existe tabla)
+   try{
+    const o=await supa.from('tienda_pedidos').select('*').order('created_at',{ascending:false}).limit(12);
+    if(!o.error&&o.data&&o.data.length){
+     RECENT_CACHE=o.data.map(x=>({mc:x.mc,total:parseFloat(x.precio)||0}));
+     renderRecent();
+     // comprador del mes es el top
+    }
+   }catch(e){}
   }
   await pull();setInterval(pull,15000);
  }catch(e){console.error(e)}
