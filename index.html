@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SylenMC — Tienda Oficial</title>
+<title>DragoMc — Tienda Oficial</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>var SYLENMC_CLOUD={URL:"https://smwduccwkslhlavxjyxn.supabase.co",ANON:"sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5",TBL:""};</script>
+<script>var DRAGOMC_CLOUD={URL:"https://smwduccwkslhlavxjyxn.supabase.co",ANON:"sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5",TBL:""};</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}body{background:#070708;color:#f2f2f5;font-family:'Inter',sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
@@ -72,7 +72,7 @@ footer{border-top:1px solid #23232a;padding:24px 20px;text-align:center;color:#8
 </head>
 <body>
 <nav>
-  <div class="brand"><div class="mark">S</div><div><b>SYLENMC</b><small>TIENDA OFICIAL</small></div></div>
+  <div class="brand"><div class="mark">D</div><div><b>DRAGOMC</b><small>TIENDA OFICIAL</small></div></div>
   <div class="links"><a href="#productos">Productos</a><a href="#sotm">Staff del Mes</a><a href="https://discord.gg/uQFkw4ssKJ" target="_blank">Discord</a><button class="cart" id="cartBtn">🛒 <span id="cartCount">0</span></button></div>
 </nav>
 
@@ -80,7 +80,7 @@ footer{border-top:1px solid #23232a;padding:24px 20px;text-align:center;color:#8
   <div class="wrap" style="padding-bottom:20px">
     <div style="background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);border-radius:1.5rem;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div>
-        <div style="display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(232,193,90,.22);background:rgba(232,193,90,.08);padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.18em">✦ SylenMC Network • Tienda Oficial</div>
+        <div style="display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(232,193,90,.22);background:rgba(232,193,90,.08);padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.18em">✦ DragoMc Network • Tienda Oficial</div>
         <h1 style="font-size:clamp(1.8rem,4vw,2.6rem);margin:10px 0 6px">TIENDA <span style="background:linear-gradient(92deg,#e8c15a,#fff);-webkit-background-clip:text;background-clip:text;color:transparent">OFICIAL</span></h1>
         <p class="muted" style="margin:0">Elige modalidad y si lo quieres solo ahí o en toda la Network (+35%).</p>
       </div>
@@ -207,17 +207,17 @@ footer{border-top:1px solid #23232a;padding:24px 20px;text-align:center;color:#8
 <div id="preview"><div style="background:#141414;border:1px solid #23232a;border-radius:1.25rem;max-width:520px;width:100%;padding:22px;text-align:center;position:relative"><button onclick="closePreview()" style="position:absolute;top:10px;right:10px;background:#23232a;color:#fff;border:none;border-radius:999px;width:28px;height:28px;cursor:pointer">✕</button><div id="pvEmoji" style="font-size:4rem;animation:float 2s ease-in-out infinite">🎒</div><h3 id="pvTitle">Preview</h3><p class="muted" id="pvDesc"></p><p class="muted" id="pvMods" style="font-family:'JetBrains Mono';font-size:.75rem"></p><div style="display:flex;gap:8px;justify-content:center;margin-top:12px"><button class="btn-p" style="padding:10px 14px;border-radius:999px;border:none;font-weight:900;cursor:pointer" onclick="addFromPreview()">Añadir al carrito</button><button class="btn-g" style="padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer" onclick="closePreview()">Cerrar</button></div></div></div>
 <style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style>
 
-<footer>© 2026 SylenMC Network • Tienda Oficial • © Discohikorybrs - Daniel Esteban Vera Fernandez</footer>
+<footer>© 2026 DragoMc Network • Tienda Oficial • Management Team. Todos los derechos reservados.</footer>
 
 <script>
 const nickInput=document.getElementById('mcNick'),loginBtn=document.getElementById('loginBtn'),loginMsg=document.getElementById('loginMsg'),dcBtn=document.getElementById('dcBtn'),dcMsg=document.getElementById('dcMsg');
-let MC_NICK=localStorage.getItem('sylen-mc')||'';
-let DC_ID=localStorage.getItem('sylen-dc-id')||'', DC_NAME=localStorage.getItem('sylen-dc-name')||'';
+let MC_NICK=localStorage.getItem('dragomc-mc')||'';
+let DC_ID=localStorage.getItem('dragomc-dc-id')||'', DC_NAME=localStorage.getItem('dragomc-dc-name')||'';
 function refreshDiscordUI(){ const el=document.getElementById('dcMsg'); if(DC_ID){el.textContent='✔ Discord: '+DC_NAME}else{el.textContent='Discord opcional — recomendado'}}
 if(MC_NICK){nickInput.value=MC_NICK;loginMsg.textContent='Logueado como '+MC_NICK}
 refreshDiscordUI();
-(function(){const h=location.hash;if(h.includes('access_token')){const p=new URLSearchParams(h.substring(1));const t=p.get('access_token');if(t){fetch('https://discord.com/api/users/@me',{headers:{Authorization:'Bearer '+t}}).then(r=>r.json()).then(u=>{DC_ID=u.id;DC_NAME=u.username;localStorage.setItem('sylen-dc-id',DC_ID);localStorage.setItem('sylen-dc-name',DC_NAME);refreshDiscordUI();history.replaceState(null,'',location.pathname+location.search);}).catch(()=>{});}}})();
-loginBtn.onclick=()=>{const v=nickInput.value.trim();if(!v)return loginMsg.textContent='Escribe tu nick';localStorage.setItem('sylen-mc',v);MC_NICK=v;loginMsg.textContent='✔ Logueado como '+v;document.getElementById('checkoutNick').value=v};
+(function(){const h=location.hash;if(h.includes('access_token')){const p=new URLSearchParams(h.substring(1));const t=p.get('access_token');if(t){fetch('https://discord.com/api/users/@me',{headers:{Authorization:'Bearer '+t}}).then(r=>r.json()).then(u=>{DC_ID=u.id;DC_NAME=u.username;localStorage.setItem('dragomc-dc-id',DC_ID);localStorage.setItem('dragomc-dc-name',DC_NAME);refreshDiscordUI();history.replaceState(null,'',location.pathname+location.search);}).catch(()=>{});}}})();
+loginBtn.onclick=()=>{const v=nickInput.value.trim();if(!v)return loginMsg.textContent='Escribe tu nick';localStorage.setItem('dragomc-mc',v);MC_NICK=v;loginMsg.textContent='✔ Logueado como '+v;document.getElementById('checkoutNick').value=v};
 if(dcBtn) dcBtn.onclick=()=>{const cid='1550563034118889583';const red=encodeURIComponent(location.href.split('#')[0]);location.href=`https://discord.com/oauth2/authorize?client_id=${cid}&response_type=token&redirect_uri=${red}&scope=identify`};
 document.getElementById('daviBtn').onclick=()=>{const b=document.getElementById('daviBox');b.style.display=b.style.display==='none'?'block':'none'};
 let PREVIEW_ID=null;
@@ -228,11 +228,11 @@ document.getElementById('preview').addEventListener('click',e=>{if(e.target.id==
 
 // Products
 const PRODUCTS=[
- {id:'verdugo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'😈',img:'🛡️',title:'VERDUGO',price:{survival:29.99,semi:29.99,simson:29.99},desc:'Rango máximo SylenMC — todo incluido + tag exclusivo'},
+ {id:'verdugo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'😈',img:'🛡️',title:'VERDUGO',price:{survival:29.99,semi:29.99,simson:29.99},desc:'Rango máximo DragoMc — todo incluido + tag exclusivo'},
  {id:'demonio-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'👹',img:'⚔️',title:'DEMONIO',price:{survival:19.99,semi:19.99,simson:19.99},desc:'Debajo de Verdugo — kits demoníacos'},
  {id:'magma-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🌋',img:'🔥',title:'MAGMA',price:{survival:14.99,semi:14.99,simson:14.99},desc:'Rango intermedio — magma y fuego'},
  {id:'abismo-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🕳️',img:'⛏️',title:'ABISMO',price:{survival:9.99,semi:9.99,simson:9.99},desc:'Rango medio — abismo'},
- {id:'brasa-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🔥',img:'🏹',title:'BRASA',price:{survival:4.99,semi:4.99,simson:4.99},desc:'Rango inicial SylenMC'},
+ {id:'brasa-p',cat:'rango-p',mods:['survival','semi','simson'],emoji:'🔥',img:'🏹',title:'BRASA',price:{survival:4.99,semi:4.99,simson:4.99},desc:'Rango inicial DragoMc'},
  {id:'verdugo-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'VERDUGO 30 días',price:{survival:12.99,semi:12.99,simson:12.99},desc:'Prueba VERDUGO por 30 días'},
  {id:'demonio-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'DEMONIO 30 días',price:{survival:9.99,semi:9.99,simson:9.99},desc:'Prueba DEMONIO por 30 días'},
  {id:'magma-t',cat:'rango-t',mods:['survival','semi','simson'],emoji:'⏳',title:'MAGMA 30 días',price:{survival:6.99,semi:6.99,simson:6.99},desc:'Prueba MAGMA por 30 días'},
@@ -278,9 +278,9 @@ document.querySelectorAll('.pkg').forEach(el=>el.addEventListener('click',()=>{
 }));
 document.getElementById('scope').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b||!b.dataset.s) return;document.querySelectorAll('#scope button').forEach(x=>x.classList.remove('active'));b.classList.add('active');SCOPE=b.dataset.s;render();update()});
 // Cart
-let CART=JSON.parse(localStorage.getItem('sylen-cart')||'[]');
+let CART=JSON.parse(localStorage.getItem('dragomc-cart')||'[]');
 const countEl=document.getElementById('cartCount'),mini=document.getElementById('miniCart'),miniTotal=document.getElementById('miniTotal'),itemsEl=document.getElementById('cartItems'),totalEl=document.getElementById('cartTotal');
-function save(){localStorage.setItem('sylen-cart',JSON.stringify(CART))}
+function save(){localStorage.setItem('dragomc-cart',JSON.stringify(CART))}
 function update(){
  countEl.textContent=CART.reduce((a,b)=>a+b.qty,0);
  let t=0;itemsEl.innerHTML='';mini.innerHTML='';
@@ -302,7 +302,7 @@ function checkout(url){
  if(!CART.length)return alert('Carrito vacío');
  const nick=document.getElementById('checkoutNick').value.trim()||MC_NICK||'';
  if(!nick)return alert('Escribe tu nick para la entrega');
- const msg=encodeURIComponent('Hola SylenMC! Quiero comprar ('+SCOPE+'):\n'+CART.map(it=>{const p=PRODUCTS.find(x=>x.id===it.id);return `- ${p.title} [${it.mod}] x${it.qty} ($${(it.pr*it.qty).toFixed(2)})`}).join('\n')+'\nTotal: '+totalEl.textContent+'\nNick: '+nick+'\nDiscord: '+(DC_ID? DC_NAME+' ('+DC_ID+')':'no vinculado')+'\nModalidad: '+(MOD==='network'?'Network':MOD));
+ const msg=encodeURIComponent('Hola DragoMc! Quiero comprar ('+SCOPE+'):\n'+CART.map(it=>{const p=PRODUCTS.find(x=>x.id===it.id);return `- ${p.title} [${it.mod}] x${it.qty} ($${(it.pr*it.qty).toFixed(2)})`}).join('\n')+'\nTotal: '+totalEl.textContent+'\nNick: '+nick+'\nDiscord: '+(DC_ID? DC_NAME+' ('+DC_ID+')':'no vinculado')+'\nModalidad: '+(MOD==='network'?'Network':MOD));
  window.open(url,'_blank')
 }
 document.getElementById('checkout').onclick=()=>checkout('https://discord.gg/uQFkw4ssKJ');
@@ -346,11 +346,11 @@ async function renderRecent(){
 }
 (async()=>{
  try{
-  const supa=supabase.createClient(SYLENMC_CLOUD.URL,SYLENMC_CLOUD.ANON);
+  const supa=supabase.createClient(DRAGOMC_CLOUD.URL,DRAGOMC_CLOUD.ANON);
   async function pull(){
-   const p=await supa.from((SYLENMC_CLOUD.TBL||'')+'points').select('*');
+   const p=await supa.from((DRAGOMC_CLOUD.TBL||'')+'points').select('*');
    let points={};if(!p.error&&p.data){p.data.forEach(r=>{if(!r.mc||!/^[A-Za-z0-9_]{3,16}$/.test(r.mc))return; points[r.id]={mc:r.mc,pts:r.pts}});}
-   const s=await supa.from((SYLENMC_CLOUD.TBL||'')+'sotm').select('*').eq('id',1).maybeSingle();
+   const s=await supa.from((DRAGOMC_CLOUD.TBL||'')+'sotm').select('*').eq('id',1).maybeSingle();
    if(!s.error&&s.data&&s.data.mc){
     document.getElementById('sNick').textContent=s.data.mc;
     document.getElementById('sDc').textContent=(s.data.dc_name?'@'+s.data.dc_name:'—')+(s.data.dc_id?' • '+s.data.dc_id:'');
